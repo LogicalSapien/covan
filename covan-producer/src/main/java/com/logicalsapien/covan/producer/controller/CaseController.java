@@ -3,7 +3,6 @@ package com.logicalsapien.covan.producer.controller;
 import com.logicalsapien.covan.producer.domain.CaseInfo;
 import com.logicalsapien.covan.producer.service.CaseFetchService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
