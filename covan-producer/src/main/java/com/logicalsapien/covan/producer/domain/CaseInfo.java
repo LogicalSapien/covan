@@ -2,10 +2,7 @@ package com.logicalsapien.covan.producer.domain;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class CaseInfo {
 
@@ -49,20 +46,20 @@ public class CaseInfo {
         this.deaths = deaths;
     }
 
-    public static List<CaseInfo> getCaseInfoListFromResponse(final CaseResponseObject caseString) {
-        if (Objects.nonNull(caseString) && Objects.nonNull(caseString.getData()) && caseString.getData().size() > 0) {
+    public static Optional<List<CaseInfo>> getCaseInfoListFromResponse(final CaseResponseObject caseString) {
+        if (Objects.nonNull(caseString) && Objects.nonNull(caseString.getData()) && !caseString.getData().isEmpty()) {
             List<CaseInfo> caseInfoList = new ArrayList<>();
             for (CaseResponseObject.Data data : caseString.getData()) {
                 CaseInfo caseInfo = new CaseInfo();
                 caseInfo.setCountry(data.getAreaName());
-                caseInfo.setDate(LocalDate.parse(data.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-d")));
+                caseInfo.setDate(LocalDate.parse(data.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                 caseInfo.setCases(data.getCases());
                 caseInfo.setDeaths(data.getDeaths());
                 caseInfoList.add(caseInfo);
             }
-            return caseInfoList;
+            return Optional.of(caseInfoList);
         } else {
-            return Collections.emptyList();
+            return Optional.empty();
         }
     }
 }

@@ -42,10 +42,10 @@ class CaseFetchServiceTest {
                 .generateCaseResponseObject()
                 .getCaseResponseObject();
 
-        when(restTemplate.getForEntity(anyString(), any())).thenReturn(ResponseEntity.ok(caseResponseObject));
+        when(restTemplate.getForEntity(anyString(), any(), anyString())).thenReturn(ResponseEntity.ok(caseResponseObject));
         List<CaseInfo> caseInfoFetched
                 = this.caseFetchService.fetchCaseByDate(
-                        LocalDate.parse("2020-04-01", DateTimeFormatter.ofPattern("yyyy-MM-d")));
+                        LocalDate.parse("2020-04-01", DateTimeFormatter.ofPattern("yyyy-MM-dd"))).get();
         assertThat(caseInfoFetched).usingRecursiveComparison().isEqualTo(builder.getCaseInfoList());
     }
 

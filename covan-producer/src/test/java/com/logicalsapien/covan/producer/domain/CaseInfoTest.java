@@ -6,17 +6,18 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.Collections.emptyList;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class CaseInfoTest {
+class CaseInfoTest {
 
     @Test
     void givenEmptyDataReturnNullObject() {
         CaseResponseObject caseResponseObject = new CaseResponseObject();
         caseResponseObject.setData(new ArrayList<>());
-        assertThat(CaseInfo.getCaseInfoListFromResponse(caseResponseObject)).isEqualTo(emptyList());
+        assertThat(CaseInfo.getCaseInfoListFromResponse(caseResponseObject)).isEqualTo(Optional.empty());
     }
 
     @Test
@@ -29,7 +30,7 @@ public class CaseInfoTest {
                     .generateCaseResponseObject()
                     .getCaseResponseObject();
 
-        List<CaseInfo> actualCaseInfoList = CaseInfo.getCaseInfoListFromResponse(caseResponseObject);
+        List<CaseInfo> actualCaseInfoList = CaseInfo.getCaseInfoListFromResponse(caseResponseObject).get();
 
 
 

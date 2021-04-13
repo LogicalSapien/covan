@@ -1,8 +1,9 @@
 package com.logicalsapien.covan.producer.domain;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class CaseResponseObject {
+public class CaseResponseObject implements Serializable {
 
     private List<Data> data;
 
