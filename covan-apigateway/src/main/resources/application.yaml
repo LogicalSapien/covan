@@ -8,13 +8,37 @@ spring:
     gateway:
       routes:
       - id: COVAN-PRODUCER
-        uri: lb://USER-SERVICE
+        uri: lb://COVAN-PRODUCER
         predicates:
-          - Path=/users/**
+          - Path=/cases/**
+#        filters:
+#        - name: CircuitBreaker
+#          args:
+#            name: COVAN-PRODUCER
+#            fallbackUri: forward:/caseProducerFallBack
       - id: COVAN-ANALYSE
         uri: lb://COVAN-ANALYSE
         predicates:
           - Path=/analyse/**
+#        filters:
+#        - name: CircuitBreaker
+#          args:
+#            name: COVAN-ANALYSE
+#            fallbackUri: forward:/caseAnalyseFallBack
+#
+#hysterix:
+#  command:
+#    fallbackcmd:
+#      execution:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 1000
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: hystrix.stream
 
 eureka:
   client:
